@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: prossi <prossi@student.42adel.org.au>      +#+  +:+       +#+        */
+/*   By: cfeliz-r <cfeliz-r@student.your42network.  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/05 12:20:51 by prossi            #+#    #+#             */
-/*   Updated: 2022/09/05 13:52:52 by prossi           ###   ########.fr       */
+/*   Created: 2024/04/25 16:49:16 by cfeliz-r          #+#    #+#             */
+/*   Updated: 2024/04/25 16:49:21 by cfeliz-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
