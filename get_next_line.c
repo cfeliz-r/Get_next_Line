@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abdiakit <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: cfeliz-r <cfeliz-r@student.your42network.  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/08 11:35:34 by abdiakit          #+#    #+#             */
-/*   Updated: 2024/04/17 17:07:55 by abdiakit         ###   ########.fr       */
+/*   Created: 2024/05/02 22:13:22 by cfeliz-r          #+#    #+#             */
+/*   Updated: 2024/05/02 22:13:30 by cfeliz-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-#include <stdio.h>
 
 static char	*ft_calloc(size_t element_count, size_t element_size)
 {

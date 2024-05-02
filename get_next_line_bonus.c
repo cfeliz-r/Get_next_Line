@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abdiakit <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: cfeliz-r <cfeliz-r@student.your42network.  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/17 17:31:26 by abdiakit          #+#    #+#             */
-/*   Updated: 2024/04/17 17:31:45 by abdiakit         ###   ########.fr       */
+/*   Created: 2024/05/02 22:13:44 by cfeliz-r          #+#    #+#             */
+/*   Updated: 2024/05/02 22:13:49 by cfeliz-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line_bonus.h"
-#include <stdio.h>
 
 static char	*ft_calloc(size_t element_count, size_t element_size)
 {
