@@ -1,16 +1,15 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line_utils.c                              :+:      :+:    :+:   */
+/*   get_next_line_utils_bonus.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cfeliz-r <cfeliz-r@student.your42network.  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/02 20:06:56 by cfeliz-r          #+#    #+#             */
-/*   Updated: 2024/05/02 20:07:02 by cfeliz-r         ###   ########.fr       */
+/*   Created: 2024/04/25 16:49:16 by cfeliz-r          #+#    #+#             */
+/*   Updated: 2024/05/02 20:09:02 by cfeliz-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 char	*ft_strdup(char *s1)
 {
@@ -89,3 +88,4 @@ void	fill_str(char *res, char *s1, char *s2)
 		res[i++] = s2[j++];
 	res[i] = '\0';
 }
+
