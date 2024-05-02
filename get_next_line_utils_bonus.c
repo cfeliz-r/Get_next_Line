@@ -3,89 +3,106 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils_bonus.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cfeliz-r <cfeliz-r@student.your42network.  +#+  +:+       +#+        */
+/*   By: abdiakit <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/25 16:49:16 by cfeliz-r          #+#    #+#             */
-/*   Updated: 2024/05/02 20:09:02 by cfeliz-r         ###   ########.fr       */
+/*   Created: 2024/04/17 17:32:23 by abdiakit          #+#    #+#             */
+/*   Updated: 2024/04/17 17:32:33 by abdiakit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "get_next_line_bonus.h"
 
-char	*ft_strdup(char *s1)
+void	ft_bzero(void *dest, size_t n)
 {
-	char			*dest;
-	unsigned int	i;
+	size_t	i;
 
-	dest = (char *) malloc(ft_strlen(s1) + 1);
-	if (!dest)
-		return (NULL);
 	i = 0;
-	while (s1[i])
+	while (i < n)
 	{
-		dest[i] = s1[i];
+		((char *)dest)[i] = 0;
 		i++;
 	}
-	dest[i] = 0;
-	return (dest);
 }
 
 size_t	ft_strlen(char *s)
 {
-	int	i;
+	size_t	i;
 
 	i = 0;
-	while (s[i])
+	if (!s)
+		return (0);
+	while (s[i] != '\0')
 		i++;
 	return (i);
+}
+
+char	*ft_strchr(char *str, int c)
+{
+	while (*str != '\0' && (char)c != *str)
+	{
+		str++;
+	}
+	if (*str == (char)c)
+	{
+		return ((char *)str);
+	}
+	else
+		return (0);
+}
+
+char	*ft_strjoin(char *s1, char *s2)
+{
+	char	*aux;
+	size_t	i;
+	size_t	j;
+
+	if (!s1)
+	{
+		s1 = (char *)malloc(1 * sizeof(char));
+		s1[0] = '\0';
+	}
+	if (!s2)
+		return (NULL);
+	aux = (char *)malloc(ft_strlen(s1) + ft_strlen(s2) + 1);
+	if (!aux)
+		return (NULL);
+	i = 0;
+	j = 0;
+	if (s1)
+		while (s1[j] != '\0')
+			aux[i++] = s1[j++];
+	j = 0;
+	while (s2[j] != '\0')
+		aux[i++] = s2[j++];
+	aux[i] = '\0';
+	free(s1);
+	return (aux);
 }
 
 char	*ft_substr(char *s, unsigned int start, size_t len)
 {
 	size_t	i;
-	char	*str;
+	char	*aux;
 
-	if (!s)
+	i = 0;
+	if (!s || start >= ft_strlen(s))
 		return (NULL);
-	if (start > ft_strlen(s))
-		return (malloc(1));
-	if (len > ft_strlen(s + start))
+	if (len == 0)
+		return (NULL);
+	if (len > (ft_strlen(s + start)))
 		len = ft_strlen(s + start);
-	str = malloc((len + 1) * sizeof(char));
-	if (!str)
-		return (NULL);
-	i = 0;
-	while (i < len)
+	aux = (char *)malloc(sizeof(char) * (len + 1));
+	if (!aux)
 	{
-		str[i] = s[start + i];
-		i++;
-	}
-	str[i] = 0;
-	return (str);
-}
-
-char	*ft_strjoin(char *s1, char *s2)
-{
-	char			*res;
-
-	res = (char *) malloc((ft_strlen(s1) + ft_strlen(s2) + 1) * sizeof(char));
-	if (!res)
+		free(aux);
 		return (NULL);
-	fill_str(res, s1, s2);
-	return (res);
+	}
+	while (len-- && *s)
+	{
+		aux[i] = s[start];
+		i++;
+		start++;
+	}
+	aux[i] = '\0';
+	return (aux);
 }
-
-void	fill_str(char *res, char *s1, char *s2)
-{
-	unsigned int	i;
-	unsigned int	j;
-
-	i = 0;
-	j = 0;
-	while (s1[j])
-		res[i++] = s1[j++];
-	j = 0;
-	while (s2[j])
-		res[i++] = s2[j++];
-	res[i] = '\0';
-}
-

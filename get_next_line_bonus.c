@@ -3,109 +3,128 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cfeliz-r <cfeliz-r@student.your42network.  +#+  +:+       +#+        */
+/*   By: abdiakit <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/25 16:48:45 by cfeliz-r          #+#    #+#             */
-/*   Updated: 2024/05/02 21:46:05 by cfeliz-r         ###   ########.fr       */
+/*   Created: 2024/04/17 17:31:26 by abdiakit          #+#    #+#             */
+/*   Updated: 2024/04/17 17:31:45 by abdiakit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "get_next_line_bonus.h"
+#include <stdio.h>
 
-typedef struct s_file_state {
-    int fd;
-    char *buffer;
-} t_file_state;
-
-static t_file_state *initialize_state(int fd, t_file_state *state);
-static char *_fill_line_buffer(t_file_state *state);
-static char *_set_line(char **line_buffer);
-static char *ft_strchr(const char *s, int c);
-
-static t_file_state *current_state = NULL;
-
-char *get_next_line(int fd)
+static char	*ft_calloc(size_t element_count, size_t element_size)
 {
-    static char *left_c = NULL;
-    char *line = NULL;
+	char	*ptr;
+	size_t	total_size;
 
-    if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, 0, 0) < 0)
-    {
-        free(left_c);
-        left_c = NULL;
-        return NULL;
-    }
-
-    current_state = initialize_state(fd, current_state);
-    if (!current_state)
-        return NULL;
-
-    line = _fill_line_buffer(current_state);
-    if (!line)
-        return NULL;
-
-    left_c = _set_line(&line);
-    return line;
+	total_size = element_count * element_size;
+	ptr = (void *)malloc(total_size);
+	if (!ptr)
+	{
+		return (NULL);
+	}
+	ft_bzero(ptr, total_size);
+	return (ptr);
 }
 
-static t_file_state *initialize_state(int fd, t_file_state *state)
+static char	*ft_read(int fd, char *left_str)
 {
-    if (!state || state->fd != fd)
-    {
-        free(state);
-        state = malloc(sizeof(t_file_state));
-        if (!state)
-            return NULL;
-        state->fd = fd;
-        state->buffer = ft_strdup("");  // Initialize with an empty buffer
-    }
-    return state;
+	char	*buff;
+	int		rd_bytes;
+
+	buff = ft_calloc((BUFFER_SIZE + 1), sizeof(char));
+	if (!buff)
+		return (NULL);
+	rd_bytes = 1;
+	while (rd_bytes != 0)
+	{
+		rd_bytes = read(fd, buff, BUFFER_SIZE);
+		if (rd_bytes == -1)
+		{
+			free(buff);
+			free(left_str);
+			return (NULL);
+		}
+		buff[rd_bytes] = '\0';
+		left_str = ft_strjoin(left_str, buff);
+		if (ft_strchr(buff, '\n'))
+			break ;
+	}
+	free(buff);
+	buff = NULL;
+	return (left_str);
 }
 
-static char *_fill_line_buffer(t_file_state *state)
+static char	*ft_line(char *buffer)
 {
-    char buffer[BUFFER_SIZE + 1];
-    ssize_t b_read;
+	char	*line;
+	int		i;
 
-    b_read = read(state->fd, buffer, BUFFER_SIZE);
-    if (b_read < 0)
-    {
-        free(state->buffer);
-        state->buffer = NULL;
-        return NULL;
-    }
-
-    buffer[b_read] = '\0';
-    char *new_buffer = ft_strjoin(state->buffer, buffer);
-    free(state->buffer);
-    state->buffer = new_buffer;
-
-    return ft_strchr(state->buffer, '\n') ? state->buffer : NULL;
+	i = 0;
+	if (!buffer[i])
+		return (NULL);
+	while (buffer[i] && buffer[i] != '\n')
+		i++;
+	if (buffer[i] != '\n' && buffer[i] == '\0')
+	{
+		line = ft_calloc(i + 1, sizeof(char));
+	}
+	else
+		line = ft_calloc(i + 2, sizeof(char));
+	if (!line)
+		return (NULL);
+	i = 0;
+	while (buffer[i] && buffer[i] != '\n')
+	{
+		line[i] = buffer[i];
+		i++;
+	}
+	if (buffer[i] && buffer[i] == '\n')
+		line[i++] = '\n';
+	return (line);
 }
 
-static char *_set_line(char **line_buffer)
+static char	*ft_rest(char *save)
 {
-    char *line_end = ft_strchr(*line_buffer, '\n');
-    char *line;
-    if (line_end)
-    {
-        *(line_end + 1) = '\0';  // Null-terminate at the newline character
-        line = ft_strdup(*line_buffer);
-        char *new_start = ft_strdup(line_end + 1);
-        free(*line_buffer);
-        *line_buffer = new_start;
-        return line;
-    }
-    return NULL;
+	int		i;
+	int		c;
+	char	*s;
+
+	i = 0;
+	while (save[i] && save[i] != '\n')
+		i++;
+	if (!save[i])
+	{
+		free(save);
+		return (NULL);
+	}
+	s = (char *)ft_calloc(sizeof(char), (ft_strlen(save) - i));
+	if (!s)
+	{
+		free(s);
+		return (NULL);
+	}
+	i++;
+	c = 0;
+	while (save[i])
+		s[c++] = save[i++];
+	s[c] = '\0';
+	free(save);
+	return (s);
 }
 
-char *ft_strchr(const char *s, int c)
+char	*get_next_line(int fd)
 {
-    while (*s != '\0')
-    {
-        if (*s == (char)c)
-            return (char *)s;
-        s++;
-    }
-    return NULL;
-}
+	static char	*buf[1045];
+	char		*line;
 
+	if (fd < 0 || BUFFER_SIZE <= 0)
+		return (NULL);
+	buf[fd] = ft_read(fd, buf[fd]);
+	if (!buf[fd])
+		return (NULL);
+	line = ft_line(buf[fd]);
+	buf[fd] = ft_rest(buf[fd]);
+	return (line);
+}
