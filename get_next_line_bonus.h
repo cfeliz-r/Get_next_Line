@@ -6,7 +6,7 @@
 /*   By: cfeliz-r <cfeliz-r@student.your42network.  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 22:13:01 by cfeliz-r          #+#    #+#             */
-/*   Updated: 2024/05/02 22:13:05 by cfeliz-r         ###   ########.fr       */
+/*   Updated: 2024/05/05 01:39:10 by cfeliz-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@
 void				ft_bzero(void *dest, size_t n);
 char				*get_next_line(int fd);
 char				*ft_strjoin(char *s1, char *s2);
-char				*ft_substr(char *s, unsigned int start, size_t len);
 char				*ft_strchr(char *str, int c);
 size_t				ft_strlen(char *s);
 
