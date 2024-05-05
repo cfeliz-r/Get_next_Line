@@ -6,12 +6,11 @@
 /*   By: cfeliz-r <cfeliz-r@student.your42network.  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 02:45:54 by cfeliz-r          #+#    #+#             */
-/*   Updated: 2024/05/05 02:46:03 by cfeliz-r         ###   ########.fr       */
+/*   Updated: 2024/05/05 02:51:27 by cfeliz-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-#include <stdio.h>
 
 static char	*ft_calloc(size_t element_count, size_t element_size)
 {
