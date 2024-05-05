@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils_bonus.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cfeliz-r <cfeliz-r@student.your42network.  +#+  +:+       +#+        */
+/*   By: abdiakit <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/02 22:14:21 by cfeliz-r          #+#    #+#             */
-/*   Updated: 2024/05/05 01:39:49 by cfeliz-r         ###   ########.fr       */
+/*   Created: 2024/04/17 17:32:23 by abdiakit          #+#    #+#             */
+/*   Updated: 2024/04/17 17:32:33 by abdiakit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,4 +76,33 @@ char	*ft_strjoin(char *s1, char *s2)
 		aux[i++] = s2[j++];
 	aux[i] = '\0';
 	free(s1);
+	return (aux);
+}
+
+char	*ft_substr(char *s, unsigned int start, size_t len)
+{
+	size_t	i;
+	char	*aux;
+
+	i = 0;
+	if (!s || start >= ft_strlen(s))
+		return (NULL);
+	if (len == 0)
+		return (NULL);
+	if (len > (ft_strlen(s + start)))
+		len = ft_strlen(s + start);
+	aux = (char *)malloc(sizeof(char) * (len + 1));
+	if (!aux)
+	{
+		free(aux);
+		return (NULL);
+	}
+	while (len-- && *s)
+	{
+		aux[i] = s[start];
+		i++;
+		start++;
+	}
+	aux[i] = '\0';
+	return (aux);
 }
